@@ -83,7 +83,7 @@ class _ViewDoctorsScreenState extends State<ViewDoctorsScreen> {
                         fallback: (context) => ListView.builder(
                             shrinkWrap: true,
                             primary: false,
-                            physics: const NeverScrollableScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             itemCount: prov.doctorsList.length,
                             itemBuilder: (context, index) {
                               return Card(

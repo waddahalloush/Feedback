@@ -31,7 +31,7 @@ class ViewDoctorsProvider extends ChangeNotifier {
     sqlDB
         .updateData('Doctors', {'doc_name': newVal}, 'doc_id = $oldVal')
         .then((value) {
-      log(value.toString());
+     
       fitchDoctors();
       addSucessDialog(
           context, LocaleKeys.addSuccess.tr(), LocaleKeys.successAddDep.tr());
