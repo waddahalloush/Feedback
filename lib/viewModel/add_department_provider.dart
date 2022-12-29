@@ -17,7 +17,7 @@ class AddDepartmentProvider extends ChangeNotifier {
           (value) {
         depController.clear();
         addSucessDialog(
-            context, LocaleKeys.addSuccess.tr(), LocaleKeys.successAddDep.tr());
+            context, LocaleKeys.addSuccess.tr(), LocaleKeys.successAddDep.tr() );
       });
     }
   }

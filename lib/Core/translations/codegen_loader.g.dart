@@ -55,7 +55,8 @@ class CodegenLoader extends AssetLoader{
   "thanks": "شكرا على رأيك",
   "thanksDesc": "نحن مسرورين بتقبل تقييمك",
   "chgLang": "تغيير لغة التطبيق",
-  "chooseDepDoc": "اختر قسم أو طبيب"
+  "chooseDep": "اختر قسم ",
+  "chooseDoc": "اختر طبيب"
 };
 static const Map<String,dynamic> en = {
   "adminPanel": "Admin Panel",
@@ -98,7 +99,8 @@ static const Map<String,dynamic> en = {
   "thanks": "Thanks for your opinion",
   "thanksDesc": "We are glad to receive your evaluation",
   "chgLang": "Change App Language",
-  "chooseDepDoc": "Choose a department or doctor"
+  "chooseDep": "Choose a department",
+  "chooseDoc": "Choose a Doctor"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

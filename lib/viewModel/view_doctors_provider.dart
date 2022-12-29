@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:medical/Core/utils/sql_db.dart';
@@ -31,7 +29,6 @@ class ViewDoctorsProvider extends ChangeNotifier {
     sqlDB
         .updateData('Doctors', {'doc_name': newVal}, 'doc_id = $oldVal')
         .then((value) {
-     
       fitchDoctors();
       addSucessDialog(
           context, LocaleKeys.addSuccess.tr(), LocaleKeys.successAddDep.tr());

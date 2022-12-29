@@ -69,8 +69,17 @@ class _ReviewFeedBackScreenState extends State<ReviewFeedBackScreen> {
                                 height: 30,
                               ),
                               title: Text(myType.reviewList[index]['f_note']),
-                              subtitle:
-                                  Text(myType.reviewList[index]['doctor']),
+                              subtitle: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(myType.reviewList[index]['f_doctor']),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(myType.reviewList[index]['f_department'])
+                                ],
+                              ),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

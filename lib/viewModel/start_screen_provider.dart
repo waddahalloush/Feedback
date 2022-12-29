@@ -7,45 +7,60 @@ import '../view/Widgets/Dialogs/add_success_dialog.dart';
 
 class StartScreenProvider extends ChangeNotifier {
   List<String> doctorsList = [];
-  String selectedItem = "No doctor";
+  List<String> departmentList = [];
+  String selectedDoctor = "No doctor";
+  String selectedDepartment = "No department";
   TextEditingController descController = TextEditingController();
   bool isLoading = true;
-  GlobalKey<FormState> fkey = GlobalKey<FormState>();
+
   SqlDB sqlDB = SqlDB();
-  void fitchDoctors() {
-    doctorsList = [];
+  void fitchDepartment() {
+    departmentList = [];
+    departmentList.add('غير محدد');
     sqlDB.readData("Department").then((value) {
       for (var element in value) {
-        doctorsList.add(element['dep_name']);
+        departmentList.add(element['dep_name']);
       }
-      sqlDB.readData("Doctors").then((value) {
-        for (var element in value) {
-          doctorsList.add(element['doc_name']);
-        }
-        selectedItem = doctorsList[0];
-        isLoading = false;
-        notifyListeners();
-      });
+
+      selectedDepartment = departmentList[0];
+      isLoading = false;
+      notifyListeners();
     });
   }
 
-  onDropdownchange(String val) {
-    selectedItem = val;
+  onDoctorDropdownchange(String val) {
+    selectedDoctor = val;
     notifyListeners();
   }
 
+  onDepartmentDropdownchange(String val) {
+    selectedDepartment = val;
+    doctorsList = [];
+    doctorsList.add('غير محدد');
+    sqlDB
+        .readSpecificData("Doctors", 'department', selectedDepartment)
+        .then((value) {
+      for (var element in value) {
+        doctorsList.add(element['doc_name']);
+      }
+      selectedDoctor = doctorsList[0];
+      notifyListeners();
+    });
+  }
+
   void setPepoleFeedBack(String feel, BuildContext context) {
-    if (fkey.currentState!.validate()) {
-      sqlDB.insertData("FeedBack", {
-        "f_note": descController.text,
-        "f_feel": feel,
-        "f_time": DateFormat.yMEd('ar').format(DateTime.now()),
-        "doctor": selectedItem,
-      }).then((value) {
-        descController.clear();
-        addSucessDialog(
-            context, LocaleKeys.thanks.tr(), LocaleKeys.thanksDesc.tr());
-      });
-    }
+    sqlDB.insertData("FeedBack", {
+      "f_note": descController.text,
+      "f_feel": feel,
+      "f_time": DateFormat.yMEd('ar').format(DateTime.now()),
+      "f_doctor": selectedDoctor,
+      "f_department": selectedDepartment,
+    }).then((value) {
+      descController.clear();
+      addSucessDialog(
+              context, LocaleKeys.thanks.tr(), LocaleKeys.thanksDesc.tr(),
+              isFeedBack: true)
+          .then((value) => Navigator.pop(context));
+    });
   }
 }

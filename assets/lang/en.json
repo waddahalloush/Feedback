@@ -39,5 +39,6 @@
   "thanks": "Thanks for your opinion",
   "thanksDesc": "We are glad to receive your evaluation",
   "chgLang": "Change App Language",
-  "chooseDepDoc": "Choose a department or doctor"
+  "chooseDep": "Choose a department",
+  "chooseDoc": "Choose a Doctor"
 }

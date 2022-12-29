@@ -41,6 +41,7 @@ abstract class  LocaleKeys {
   static const thanks = 'thanks';
   static const thanksDesc = 'thanksDesc';
   static const chgLang = 'chgLang';
-  static const chooseDepDoc = 'chooseDepDoc';
+  static const chooseDep = 'chooseDep';
+  static const chooseDoc = 'chooseDoc';
 
 }

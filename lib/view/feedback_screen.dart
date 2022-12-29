@@ -27,16 +27,11 @@ class FeedBackScreen extends StatefulWidget {
 class _FeedBackScreenState extends State<FeedBackScreen> {
   @override
   void initState() {
-    context.read<StartScreenProvider>().fitchDoctors();
+    context.read<StartScreenProvider>().fitchDepartment();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    context.read<StartScreenProvider>().descController.dispose();
-    super.dispose();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,85 +53,134 @@ class _FeedBackScreenState extends State<FeedBackScreen> {
                         height: context.height / 2,
                       ),
                       Expanded(
-                          child: Form(
-                        key: myType.fkey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              LocaleKeys.feedBack.tr(),
-                              style:
-                                  Theme.of(context).primaryTextTheme.headline1,
-                            ),
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            ConditionalBuilder(
-                              condition: myType.isLoading,
-                              builder: (context) => ShimmerWidget.rectangular(
-                                width: context.width,
-                                height: 50,
-                                radius: 12,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                LocaleKeys.feedBack.tr(),
+                                style:
+                                    Theme.of(context).primaryTextTheme.headline1,
                               ),
-                              fallback: (context) => DropdownButtonFormField(
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headline6,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return LocaleKeys.emptyDoctor.tr();
-                                  }
-                                  return null;
-                                },
-                                dropdownColor: Colors.white,
-                                value: myType.selectedItem,
-                                items: myType.doctorsList
-                                    .map((e) => DropdownMenuItem(
-                                          value: e,
-                                          child: Text(e),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) =>
-                                    myType.onDropdownchange(value!),
-                                decoration: InputDecoration(
-                                    label: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 8),
-                                  child: Text(LocaleKeys.chooseDepDoc.tr()),
-                                )),
+                              SizedBox(
+                                height: 30.h,
                               ),
-                            ),
-                            SizedBox(
-                              height: 30.h,
-                            ),
-                            TextFormField(
-                                style: Theme.of(context)
-                                    .primaryTextTheme
-                                    .headline6,
-                                maxLines: 3,
-                                controller: myType.descController,
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return LocaleKeys.emptyDesc.tr();
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                    label: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(LocaleKeys.desc.tr()),
-                                ))),
-                            SizedBox(
-                              height: 20.h,
-                            ),
-                            ConfirmButton(
-                              onTap: () => myType.setPepoleFeedBack(
-                                  widget.feel, context),
-                            )
-                          ],
-                        ),
-                      ))
+                              Row(
+                                children: [
+                                  Flexible(
+                                    child: ConditionalBuilder(
+                                      condition: myType.isLoading,
+                                      builder: (context) =>
+                                          ShimmerWidget.rectangular(
+                                        width: context.width,
+                                        height: 50,
+                                        radius: 12,
+                                      ),
+                                      fallback: (context) =>
+                                          DropdownButtonFormField(
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .headline6,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return LocaleKeys.emptyDep.tr();
+                                          }
+                                          return null;
+                                        },
+                                        dropdownColor: Colors.white,
+                                        value: myType.selectedDepartment,
+                                        items: myType.departmentList
+                                            .map((e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: Text(e),
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) => myType
+                                            .onDepartmentDropdownchange(value!),
+                                        decoration: InputDecoration(
+                                            label: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          child:
+                                              Text(LocaleKeys.chooseDep.tr()),
+                                        )),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Flexible(
+                                    child: ConditionalBuilder(
+                                      condition: myType.isLoading,
+                                      builder: (context) =>
+                                          ShimmerWidget.rectangular(
+                                        width: context.width,
+                                        height: 50,
+                                        radius: 12,
+                                      ),
+                                      fallback: (context) =>
+                                          DropdownButtonFormField(
+                                        style: Theme.of(context)
+                                            .primaryTextTheme
+                                            .headline6,
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return LocaleKeys.emptyDoctor.tr();
+                                          }
+                                          return null;
+                                        },
+                                        dropdownColor: Colors.white,
+                                        value: myType.selectedDoctor,
+                                        items: myType.doctorsList
+                                            .map((e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: Text(e),
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) =>
+                                            myType.onDoctorDropdownchange(value!),
+                                        decoration: InputDecoration(
+                                            label: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8),
+                                          child:
+                                              Text(LocaleKeys.chooseDoc.tr()),
+                                        )),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 30.h,
+                              ),
+                              TextFormField(
+                                  style: Theme.of(context)
+                                      .primaryTextTheme
+                                      .headline6,
+                                  maxLines: 3,
+                                  controller: myType.descController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return LocaleKeys.emptyDesc.tr();
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                      label: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(LocaleKeys.desc.tr()),
+                                  ))),
+                              SizedBox(
+                                height: 20.h,
+                              ),
+                              ConfirmButton(
+                                onTap: () => myType.setPepoleFeedBack(
+                                    widget.feel, context),
+                              )
+                            ],
+                          ))
                     ],
                   ),
                 ],

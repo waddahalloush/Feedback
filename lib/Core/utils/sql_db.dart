@@ -42,7 +42,8 @@ CREATE TABLE FeedBack (
   f_note TEXT,
   f_feel TEXT,
   f_time TEXT,
-  doctor Text
+  f_doctor Text,
+  f_department Text
    )
     """);
     await batch.commit();
@@ -55,6 +56,11 @@ CREATE TABLE FeedBack (
     return response;
   }
  
+ Future<List<Map>> readSpecificData(String table , String column , String query)async{
+    Database? myDB = await db;
+    List<Map> response = await myDB!.query(table , where: '$column = ?' , whereArgs: [query]);
+    return response;
+ }
 
   //Insert
   Future<int> insertData(String table, Map<String, Object?> values) async {
